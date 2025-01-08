@@ -4,7 +4,9 @@ trigger:
 - main  # Replace 'main' with your branch name if needed
 
 pool:
-  vmImage: 'ubuntu-latest'  # Use the latest Ubuntu image for the build agent
+  name: 'private'          # Your private agent pool name
+  demands:
+    - Agent.Name -equals Muneerpasha
 
 steps:
 # Step 1: Print a welcome message
