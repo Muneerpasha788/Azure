@@ -25,7 +25,6 @@ stages:
         - task: CmdLine@2
           inputs:
             script: 'Az login'
-            workingDirectory: 'C:\Users\Muneer>'
         - task: TerraformTaskV4@4
           inputs:
             provider: 'azurerm'
