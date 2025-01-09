@@ -25,9 +25,14 @@ stages:
         - task: AzureCLI@2
           inputs:
             azureSubscription: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
-            scriptType: 'bash'
-            scriptLocation: 'inlineScript'
-            inlineScript: 'az login'
+            scriptType: 'ps'
+        - task: AzurePowerShell@5
+          inputs:
+            azureSubscription: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+            ScriptType: 'InlineScript'
+            Inline: 'Az login'
+            azurePowerShellVersion: 'LatestVersion'
+          
         - task: TerraformTaskV4@4
           inputs:
             provider: 'azurerm'
