@@ -10,6 +10,12 @@ pool:
   name: 'private'          # Your private agent pool name
   demands:
     - Agent.Name -equals Muneerpasha
+variables:
+  # Azure Service Principal credentials as pipeline variables
+  azureClientId: $(azureClientId)  # Store these as pipeline variables
+  azureClientSecret: $(azureClientSecret)
+  azureTenantId: $(azureTenantId)
+  azureSubscriptionId: $(azureSubscriptionId)
 
 stages:
   - stage: terraform
@@ -22,9 +28,31 @@ stages:
         - task: TerraformInstaller@1
           inputs:
             terraformVersion: 'latest'
-        - task: CmdLine@2
+        
+        - task: AzurePowerShell@5
           inputs:
-            script: 'Az login'
+            azureSubscription: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+            ScriptType: 'InlineScript'
+            Inline: |
+              $clientId = "$(azureClientId)"
+                    $tenantId = "$(azureTenantId)"
+                    $clientSecret = "$(azureClientSecret)"
+              
+                    # Convert the Client Secret to SecureString
+                    $secureClientSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force
+              
+                    # Create the credentials object
+                    $creds = New-Object System.Management.Automation.PSCredential($clientId, $secureClientSecret)
+              
+                    # Authenticate to Azure using the Service Principal
+                    Connect-AzAccount -ServicePrincipal -TenantId $tenantId -Credential $creds
+              
+                    # Set the Azure context to the desired subscription
+                    Set-AzContext -SubscriptionId "$(azureSubscriptionId)"
+              
+                    # Verify connection by fetching the subscription details
+                    Get-AzSubscription
+            azurePowerShellVersion: 'LatestVersion'
         - task: TerraformTaskV4@4
           inputs:
             provider: 'azurerm'
