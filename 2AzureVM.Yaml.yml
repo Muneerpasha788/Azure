@@ -1,0 +1,54 @@
+trigger:
+  branches:
+    include:
+    - main
+pool:
+  name: 'private'
+  demands:
+  - Agent.Name -equals Muneerpasha
+stages:
+- stage: terraform
+  displayName: Terrafom
+  jobs:
+  - job: terraform
+    displayName: 'azure VM using terraform'
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_terraform'
+        backendAzureRmUseEnvironmentVariablesForAuthentication: false
+        backendServiceArm: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+        backendAzureRmResourceGroupName: 'DefaultResourceGroup-CCAN'
+        backendAzureRmStorageAccountName: 'terraform127'
+        backendAzureRmContainerName: 'muneer-az'
+        backendAzureRmKey: 'terraform.tfstate'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_terraform'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_terraform'
+        commandOptions: '-out tfplanfile'
+        environmentServiceNameAzureRM: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: 'Dev_terraform'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
