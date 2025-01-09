@@ -29,7 +29,24 @@ stages:
             script: |
               Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile AzureCLI.msi
               Start-Process msiexec.exe -ArgumentList '/I AzureCLI.msi /quiet' -Wait
-              az --version    
+        - task: PowerShell@2
+          displayName: 'Install Azure PowerShell Modules'
+          inputs:
+            targetType: 'inline'
+            script: |
+              # Install PowerShellGet module if not already available
+              if (-not (Get-Module -ListAvailable -Name PowerShellGet)) {
+                  Install-Module -Name PowerShellGet -Force -AllowClobber
+              }
+              Install-Module -Name Az -Force -AllowClobber
+              Write-Host "Azure PowerShell Module Version:"
+              Get-InstalledModule -Name Az
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+            scriptType: 'ps'
+            scriptLocation: 'inlineScript'
+            inlineScript: 'Az login'
         - task: TerraformTaskV4@4
           inputs:
             provider: 'azurerm'
