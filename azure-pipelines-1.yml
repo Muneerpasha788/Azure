@@ -22,12 +22,10 @@ stages:
         - task: TerraformInstaller@1
           inputs:
             terraformVersion: 'latest'
-        - task: AzureCLI@2
+        - task: CmdLine@2
           inputs:
-            azureSubscription: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
-            scriptType: 'ps'
-            scriptLocation: 'inlineScript'
-            inlineScript: 'Az login'
+            script: 'Az login'
+            workingDirectory: 'C:\Users\Muneer>'
         - task: TerraformTaskV4@4
           inputs:
             provider: 'azurerm'
