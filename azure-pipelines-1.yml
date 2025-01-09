@@ -40,3 +40,9 @@ stages:
             backendAzureRmStorageAccountName: 'terraform127'
             backendAzureRmContainerName: 'muneer-az'
             backendAzureRmKey: 'terraform.tfstate'
+        - task: TerraformTaskV4@4
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            workingDirectory: '$(System.DefaultWorkingDirectory)Dev_terraform'
+            environmentServiceNameAzureRM: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
