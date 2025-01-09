@@ -11,11 +11,32 @@ pool:
   demands:
     - Agent.Name -equals Muneerpasha
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+  - stage: terraform
+    displayName: Terrafom
+    jobs:
+      - job: terraform
+        displayName: 'azure VM using terraform'
+        steps:
+        
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+            scriptType: 'ps'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              echo "Authenticating with Azure..."
+              az login
+        - task: TerraformTaskV4@4
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)Dev_terraform'
+            backendServiceArm: 'Free Trial(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+            backendAzureRmResourceGroupName: 'DefaultResourceGroup-CCAN'
+            backendAzureRmStorageAccountName: 'terraform127'
+            backendAzureRmContainerName: 'muneer-az'
+            backendAzureRmKey: 'terraform.tfstate'
