@@ -15,8 +15,8 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-        versionSource: 'fromFile'
-        versionFilePath: '16.x'
+        versionSource: 'spec'
+        versionSpec: '16.x'
         checkLatest: true
     - task: Npm@1
       inputs:
