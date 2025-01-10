@@ -1,0 +1,20 @@
+trigger:
+  branches:
+    include:
+    - main
+pool:
+  name: 'private'
+  demands:
+  - Agent.Name -equals Muneerpasha
+stages:
+- stage: terraform
+  displayName: Terrafom
+  jobs:
+  - job: 
+    steps:
+    displayName: npn install
+
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: 'Azure /Youtube_Clone/'
