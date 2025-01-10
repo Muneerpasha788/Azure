@@ -12,6 +12,11 @@ stages:
   jobs:
   - job: terraform
     displayName: 'youtube clone'
+    steps:
+    - task: Npm@1
+      inputs:
+        command: 'install'
+        workingDir: 'Azure /Youtube_Clone/'
   
 
   
