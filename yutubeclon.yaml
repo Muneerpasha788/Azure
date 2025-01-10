@@ -17,6 +17,12 @@ stages:
       inputs:
         command: 'install'
         workingDir: 'Azure /Youtube_Clone/'
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        workingDir: 'Azure /Youtube_Clone/'
+        customCommand: 'run build'
+    
   
 
   
