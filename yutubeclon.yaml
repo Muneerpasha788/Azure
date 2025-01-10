@@ -15,8 +15,9 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-        versionSource: 'spec'
-        versionSpec: '6.x'
+        versionSource: 'fromFile'
+        versionFilePath: '16.x'
+        checkLatest: true
     - task: Npm@1
       inputs:
         command: 'install'
