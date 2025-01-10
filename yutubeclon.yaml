@@ -7,14 +7,11 @@ pool:
   demands:
   - Agent.Name -equals Muneerpasha
 stages:
-- stage: terraform
-  displayName: Terrafom
+- stage: Build
+  displayName: Build
   jobs:
-  - job: 
-    steps:
-    displayName: npn install
+  - job: terraform
+    displayName: 'youtube clone'
+  
 
-  - task: Npm@1
-    inputs:
-      command: 'install'
-      workingDir: 'Azure /Youtube_Clone/'
+  
