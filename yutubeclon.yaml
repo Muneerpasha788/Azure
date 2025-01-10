@@ -13,6 +13,10 @@ stages:
   - job: terraform
     displayName: 'youtube clone'
     steps:
+    - task: NodeTool@0
+      inputs:
+        versionSource: 'spec'
+        versionSpec: '6.x'
     - task: Npm@1
       inputs:
         command: 'install'
