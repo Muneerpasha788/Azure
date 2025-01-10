@@ -24,7 +24,7 @@ stages:
     - task: Npm@1
       inputs:
         command: 'custom'
-        workingDir: 'Azure /Youtube_Clone/'
+        workingDir: 'Youtube_Clone'
         customCommand: 'run build'
     
   
