@@ -29,7 +29,7 @@ stages:
         customCommand: 'run build'
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)Youtube_Clonebuild'
+        SourceFolder: '$(System.DefaultWorkingDirectory)\Youtube_Clone\build'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - task: PublishBuildArtifacts@1
