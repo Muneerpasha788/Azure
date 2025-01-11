@@ -21,9 +21,12 @@ stages:
       inputs:
         dockerVersion: '17.09.0-ce'
     - task: Docker@2
-      displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfiles/Dockerfile'
-        tags: |
-          $(tag)
+        containerRegistry: 'Muneeracrregistry'
+        command: 'login'
+        addBaseImageData: 
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Muneeracrregistry'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
