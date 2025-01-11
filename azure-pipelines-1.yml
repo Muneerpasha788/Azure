@@ -16,5 +16,22 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'Muneeracrregistry'
+        repository: 'Muneer788'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Free Trial(1)(ecd6e0a6-0b59-4f25-b4e0-d374d995357e)'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: '''az acr login --name=Muneeracrregistry'
+        addSpnToEnvironment: true
+        useGlobalConfig: true
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Muneeracrregistry'
+        repository: 'Muneer'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+    
+      
