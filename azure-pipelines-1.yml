@@ -6,16 +6,6 @@ pool:
   name: 'private'
   demands:
   - Agent.Name -equals Muneerpasha
-resources:
-- repo: self
-
-variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '2f54aaed-e30c-4ad8-87a7-0170880895f2'
-  imageRepository: 'nginx'
-  containerRegistry: 'muneeracrregistry.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfiles/Dockerfile'
-  tag: '$(Build.BuildId)'
 stages:
 - stage: Build
   displayName: Build and push stage
@@ -24,11 +14,7 @@ stages:
     displayName: Build
     steps:
     - task: Docker@2
-      displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        containerRegistry: 'Muneeracrregistry'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
