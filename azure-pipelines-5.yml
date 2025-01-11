@@ -3,9 +3,9 @@ trigger:
     include:
     - main
 pool:
-  name: 'private'
+  name: 'default'
   demands:
-  - Agent.Name -equals Muneerpasha
+  - Agent.Name -equals Linux
 
 variables:
   tag: '$(Build.BuildId)'
