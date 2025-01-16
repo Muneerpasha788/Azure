@@ -4,9 +4,9 @@ trigger:
 - main  # Replace 'main' with your branch name if needed
 
 pool:
-  name: 'private'          # Your private agent pool name
+  name: 'default'          # Your private agent pool name
   demands:
-    - Agent.Name -equals Muneerpasha
+    - Agent.Name -equals Linux
 
 steps:
 # Step 1: Print a welcome message
