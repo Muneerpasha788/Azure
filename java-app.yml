@@ -1,0 +1,21 @@
+# azure-pipelines.yml
+
+trigger:
+- main  # Replace 'main' with your branch name if needed
+
+pool:
+  name: 'default'          # Your private agent pool name
+  demands:
+    - Agent.Name -equals Muneer
+
+steps:
+  - task: Maven@4
+    inputs:
+      mavenPomFile: 'pom.xml'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
