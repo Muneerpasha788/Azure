@@ -15,13 +15,6 @@ steps:
     echo "This is a basic pipeline using echo commands."
   displayName: 'Print Welcome Message'
 
-# Step 2: Print environment variables
-- script: |
-    echo "The current agent is running on: $(Agent.OS)"
-    echo "The repository being built is: $(Build.Repository.Name)"
-    echo "The branch being built is: $(Build.SourceBranchName)"
-  displayName: 'Print Environment Variables'
-
 # Step 3: Simulate a process using echo
 - script: |
     echo "Starting a simulated process..."
