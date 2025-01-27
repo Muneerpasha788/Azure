@@ -6,7 +6,7 @@ trigger:
 pool:
   name: 'default'          # Your private agent pool name
   demands:
-    - Agent.Name -equals Muneer
+    - Agent.Name -equals Pasha
 
 steps:
   - task: CmdLine@2
