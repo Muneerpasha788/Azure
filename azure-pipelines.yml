@@ -9,17 +9,9 @@ pool:
     - Agent.Name -equals Muneer
 
 steps:
-# Step 1: Print a welcome message
-- script: |
-    echo "Hello, Azure DevOps!"
-    echo "This is a basic pipeline using echo commands."
-  displayName: 'Print Welcome Message'
-
-# Step 3: Simulate a process using echo
-- script: |
-    echo "Starting a simulated process..."
-    echo "Process step 1: Initializing..."
-    echo "Process step 2: Processing..."
-    echo "Process step 3: Completing..."
-    echo "Simulated process completed!"
-  displayName: 'Simulate a Process with Echo'
+  - task: CmdLine@2
+    inputs:
+      script: |
+        echo Write your commands here
+        
+        echo Hello world
