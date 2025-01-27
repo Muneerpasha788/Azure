@@ -6,7 +6,7 @@ trigger:
 pool:
   name: 'default'          # Your private agent pool name
   demands:
-    - Agent.Name -equals Linux
+    - Agent.Name -equals Muneer
 
 steps:
 # Step 1: Print a welcome message
