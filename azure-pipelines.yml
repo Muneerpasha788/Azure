@@ -8,10 +8,9 @@ pool:
   demands:
     - Agent.Name -equals Pasha
 
-steps:
-  - task: CmdLine@2
-    inputs:
-      script: |
-        echo Write your commands here
-        
-        echo Hello world
+jobs:
+- job: DisplayName
+  displayName: 'Display Name'
+  steps:
+  - script: echo "Hello, [Your Name]!"  # Replace [Your Name] with your actual name
+    displayName: 'Display Name Message'
