@@ -17,13 +17,18 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            # Ensure the Microsoft.PowerShell.Security module is loaded
-            Import-Module Microsoft.PowerShell.Security -ErrorAction SilentlyContinue
-            Remove-Module Microsoft.PowerShell.Security -ErrorAction SilentlyContinue
-            Import-Module Microsoft.PowerShell.Security
-
-            # Output the PowerShell version for debugging
+            # Check PowerShell version
             Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+            
+            # Using ConvertTo-SecureString with plain text in PowerShell 7.x
+            $secureString = ConvertTo-SecureString "MySecretPassword" -AsPlainText -Force
+            Write-Host "Secure string created using ConvertTo-SecureString."
+
+            # Alternative method using System.Security.SecureString
+            $secureStringAlt = New-Object System.Security.SecureString
+            "mySecretPassword" | ForEach-Object { $secureStringAlt.AppendChar($_) }
+            $secureStringAlt.MakeReadOnly()
+            Write-Host "Secure string created using System.Security.SecureString."
             
             # Test writing to console
             Write-Host "Hello World"
