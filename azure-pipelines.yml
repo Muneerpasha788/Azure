@@ -26,7 +26,7 @@ stages:
 
             # Alternative method using System.Security.SecureString
             $secureStringAlt = New-Object System.Security.SecureString
-            "mySecretPassword" | ForEach-Object { $secureStringAlt.AppendChar($_) }
+            "mySecretPassword".ToCharArray() | ForEach-Object { $secureStringAlt.AppendChar($_) }
             $secureStringAlt.MakeReadOnly()
             Write-Host "Secure string created using System.Security.SecureString."
             
