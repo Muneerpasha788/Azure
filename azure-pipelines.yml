@@ -34,7 +34,7 @@ stages:
             Write-Host "Hello World"
       - task: Maven@4
         inputs:
-          mavenPomFile: 'pom.xml'
+          mavenPomFile: 'JAVa/pom.xml'
           publishJUnitResults: false
           javaHomeOption: 'JDKVersion'
           mavenVersionOption: 'Default'
