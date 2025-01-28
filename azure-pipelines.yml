@@ -44,5 +44,5 @@ stages:
       - task: CopyFiles@2
         inputs:
           SourceFolder: '$(Build.SourcesDirectory)\JAVa\target'
-          Contents: '''**/*.jar'''
+          Contents: '**/*.jar'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
