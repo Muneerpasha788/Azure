@@ -8,9 +8,17 @@ pool:
   demands:
     - Agent.Name -equals Pasha
 
-jobs:
-- job: DisplayName
-  displayName: 'Display Name'
-  steps:
-  - script: echo "Hello, [Your Name]!"  # Replace [Your Name] with your actual name
-    displayName: 'Display Name Message'
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    steps:
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your PowerShell commands here.
+            
+            Write-Host "Hello World"
