@@ -6,7 +6,7 @@ trigger:
 pool:
   name: 'default'          # Your private agent pool name
   demands:
-    - Agent.Name -equals Pasha
+    - Agent.Name -equals Muneer
 
 stages:
 - stage: Build
