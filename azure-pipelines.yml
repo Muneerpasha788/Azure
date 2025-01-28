@@ -1,10 +1,8 @@
-# azure-pipelines.yml
-
 trigger:
-- main  # Replace 'main' with your branch name if needed
+- main
 
 pool:
-  name: 'default'          # Your private agent pool name
+  name: 'default'
   demands:
     - Agent.Name -equals Muneer
 
@@ -19,6 +17,13 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            # Write your PowerShell commands here.
+            # Ensure the Microsoft.PowerShell.Security module is loaded
+            Import-Module Microsoft.PowerShell.Security -ErrorAction SilentlyContinue
+            Remove-Module Microsoft.PowerShell.Security -ErrorAction SilentlyContinue
+            Import-Module Microsoft.PowerShell.Security
+
+            # Output the PowerShell version for debugging
+            Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
             
+            # Test writing to console
             Write-Host "Hello World"
