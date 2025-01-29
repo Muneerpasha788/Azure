@@ -76,7 +76,6 @@
       <artifactId>mysql-connector-java</artifactId>
       <scope>runtime</scope>
     </dependency>
-
     <dependency>
       <!-- Workaround for AOT issue (https://github.com/spring-projects/spring-framework/pull/33949) -->
       <groupId>io.projectreactor</groupId>
