@@ -34,6 +34,16 @@ stages:
             Write-Host "Hello World"
       - task: Maven@4
         inputs:
+          mavenPomFile: 'JAva/pom.xml'
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+      - task: Maven@4
+        inputs:
           mavenPomFile: 'JAVa/pom.xml'
           goals: 'clean install'
           publishJUnitResults: false
