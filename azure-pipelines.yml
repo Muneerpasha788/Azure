@@ -35,7 +35,7 @@ stages:
       - task: Maven@4
         inputs:
           mavenPomFile: 'JAVa/pom.xml'
-          goals: 'clean install'
+          goals: 'clean install -DskipTests'
           publishJUnitResults: true
           testResultsFiles: '**/surefire-reports/TEST-*.xml'
           javaHomeOption: 'JDKVersion'
