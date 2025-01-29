@@ -35,7 +35,7 @@ stages:
       - task: Maven@4
         inputs:
           mavenPomFile: 'JAVa/pom.xml'
-          goals: 'clean test -X'
+          goals: 'clean install'
           publishJUnitResults: false
           javaHomeOption: 'JDKVersion'
           mavenVersionOption: 'Default'
