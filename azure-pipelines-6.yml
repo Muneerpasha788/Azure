@@ -20,13 +20,12 @@ stages:
       inputs:
         versionSpec: 
         checkLatest: true
-        
-    - script: dotnet nuget locals all --clear
-      displayName: 'Clear NuGet Cache'
-
-    - script: dotnet restore
-      displayName: 'Restore NuGet Packages'
-
+    - task: NuGetCommand@2
+      inputs:
+        command: 'restore'
+        restoreSolution: '**/*.csproj'
+        feedsToUse: 'select'
+    
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
