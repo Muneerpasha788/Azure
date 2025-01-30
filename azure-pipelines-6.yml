@@ -24,7 +24,7 @@ stages:
       inputs:
         command: 'restore'
         projects: '**/*.csproj'
-        restoreArguments: '--verbosity detailed'
+        restoreArguments: '--verbosity'
         feedsToUse: 'select'
     - task: DotNetCoreCLI@2
       inputs:
