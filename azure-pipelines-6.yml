@@ -29,22 +29,22 @@ stages:
       inputs:
         command: 'build'
         projects: 'ASP.NET/mysql-connector-net/EFCore/MySql.EntityFrameworkCore.sln'
-        arguments: '--configuration Relase'
+        arguments: '--configuration Release'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: 'ASP.NET/mysql-connector-net/EntityFramework/MySql.Data.EntityFramework.sln'
-        arguments: '--configuration $(buildConfiguration)'
+        arguments: '--configuration Release'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: 'ASP.NET/mysql-connector-net/MySQL.Data.OpenTelemetry/MySQL.Data.OpenTelemetry.sln'
-        arguments: '--configuration $(buildConfiguration)'
+        arguments: '--configuration Release'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: 'ASP.NET/mysql-connector-net/MySQL.Data/MySql.Data.sln'
-        arguments: '--configuration $(buildConfiguration)'
+        arguments: '--configuration Release'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
