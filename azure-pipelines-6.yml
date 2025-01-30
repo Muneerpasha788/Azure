@@ -25,6 +25,10 @@ stages:
         projects: '**/*.csproj'
         restoreArguments: '--verbosity'
         feedsToUse: 'select'
+    
+    - script: dotnet clean
+    - script: dotnet build --configuration Release --no-restore
+    
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
