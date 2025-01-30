@@ -1,32 +1,55 @@
-# azure-pipelines.yml
-
 trigger:
-- main  # Replace 'main' with your branch name if needed
+- main
 
 pool:
-  name: 'default'          # Your private agent pool name
+  name: 'default'
   demands:
-    - Agent.Name -equals Linux
+    - Agent.Name -equals Muneer
 
-steps:
-# Step 1: Print a welcome message
-- script: |
-    echo "Hello, Azure DevOps!"
-    echo "This is a basic pipeline using echo commands."
-  displayName: 'Print Welcome Message'
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    steps:
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Check PowerShell version
+            Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+            
+            # Using ConvertTo-SecureString with plain text in PowerShell 7.x
+            $secureString = ConvertTo-SecureString "MySecretPassword" -AsPlainText -Force
+            Write-Host "Secure string created using ConvertTo-SecureString."
 
-# Step 2: Print environment variables
-- script: |
-    echo "The current agent is running on: $(Agent.OS)"
-    echo "The repository being built is: $(Build.Repository.Name)"
-    echo "The branch being built is: $(Build.SourceBranchName)"
-  displayName: 'Print Environment Variables'
-
-# Step 3: Simulate a process using echo
-- script: |
-    echo "Starting a simulated process..."
-    echo "Process step 1: Initializing..."
-    echo "Process step 2: Processing..."
-    echo "Process step 3: Completing..."
-    echo "Simulated process completed!"
-  displayName: 'Simulate a Process with Echo'
+            # Alternative method using System.Security.SecureString
+            $secureStringAlt = New-Object System.Security.SecureString
+            "mySecretPassword".ToCharArray() | ForEach-Object { $secureStringAlt.AppendChar($_) }
+            $secureStringAlt.MakeReadOnly()
+            Write-Host "Secure string created using System.Security.SecureString."
+            
+            # Test writing to console
+            Write-Host "Hello World"
+      - task: Maven@4
+        inputs:
+          mavenPomFile: 'JAVa/pom.xml'
+          goals: 'clean install -DskipTests'
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+      - task: CopyFiles@2
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)\JAVa\target'
+          Contents: '**/*.jar'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
