@@ -23,7 +23,6 @@ stages:
       inputs:
         command: 'restore'
         projects: '**/*.sln'
-        restoreArguments: '--configfile $(NuGetConfig)'
         feedsToUse: 'select'
     
     - task: DotNetCoreCLI@2
