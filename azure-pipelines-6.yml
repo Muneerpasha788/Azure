@@ -23,14 +23,14 @@ stages:
       inputs:
         command: 'restore'
         projects: '**/*.sln'
-        restoreArguments: '--verbosity'
+        restoreArguments: '--configuration $(buildConfiguration)'
         feedsToUse: 'select'
     
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: 'ASP.NET/mysql-connector-net/EFCore/MySql.EntityFrameworkCore.sln'
-        arguments: '--verbosity'
+        arguments: '--configuration Relase'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
