@@ -18,8 +18,7 @@ stages:
         version: '8.x'
     - task: NuGetToolInstaller@1
       inputs:
-        versionSpec: 
-        checkLatest: true
+        versionSpec: '5.8'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
