@@ -29,8 +29,34 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
+        projects: 'ASP.NET/mysql-connector-net/EFCore/MySql.EntityFrameworkCore.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: 'ASP.NET/mysql-connector-net/EntityFramework/MySql.Data.EntityFramework.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: 'ASP.NET/mysql-connector-net/MySQL.Data.OpenTelemetry/MySQL.Data.OpenTelemetry.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: 'ASP.NET/mysql-connector-net/MySQL.Data/MySql.Data.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: 'ASP.NET/mysql-connector-net/MySql.Web/MySql.Web.sln'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
         projects: '**/*.sln'
-        arguments: '--configuration Release , ---verbosity'
+        arguments: '-configuration $(buildConfiguration)'
+        testRunTitle: 'MySQL Connector Tests'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
