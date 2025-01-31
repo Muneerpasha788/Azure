@@ -44,8 +44,10 @@ stages:
       displayName: 'Publish Web Application'
       inputs:
         command: 'publish'
-        publishWebProjects: true
+        publishWebProjects: false
+        projects: 'ASP.NET\mysql-connector-net\MySql.Web\src\MySql.Web.csproj'
         arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: false
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Build Artifacts'
