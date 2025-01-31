@@ -50,6 +50,9 @@ stages:
         command: 'build'
         projects: 'ASP.NET/mysql-connector-net/MySql.Web/MySql.Web.sln'
         arguments: '--configuration Release'
+        
+    - script: dir $(Build.SourcesDirectory) /s /b
+
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
