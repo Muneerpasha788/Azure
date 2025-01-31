@@ -1,8 +1,8 @@
 trigger:
-- main  # Replace with your actual branch name
+- main
 
 pool:
-  name: 'default'          # Your private agent pool name
+  name: 'default'
   demands:
     - Agent.Name -equals Muneer
 
@@ -22,25 +22,29 @@ stages:
       inputs:
         versionSpec: '5.8'
 
+    # Debugging Step: List files in repo
+    - script: dir $(Build.SourcesDirectory) /s /b
+      displayName: 'List all files in repo'
+
+    # Corrected project path based on structure
     - task: DotNetCoreCLI@2
       displayName: 'Restore NuGet Packages'
       inputs:
         command: 'restore'
-        projects: '**/*.sln'
+        projects: '**/*.sln'  
 
     - task: DotNetCoreCLI@2
-      displayName: 'Build Web Application'
+      displayName: 'Build Solution'
       inputs:
         command: 'build'
-        projects: 'ASP.NET/myapp/MyApp.Web.csproj'  # Correct web app project file
+        projects: '**/MySql.Web.sln'  # Ensure correct path
         arguments: '--configuration Release'
 
     - task: DotNetCoreCLI@2
       displayName: 'Publish Web Application'
       inputs:
         command: 'publish'
-        publishWebProjects: false
-        projects: 'ASP.NET/myapp/MyApp.Web.csproj'  # Ensure correct .csproj is published
+        publishWebProjects: true
         arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
 
     - task: PublishBuildArtifacts@1
