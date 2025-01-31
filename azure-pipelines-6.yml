@@ -49,7 +49,7 @@ stages:
       inputs:
         command: 'build'
         projects: 'ASP.NET/mysql-connector-net/MySql.Web/MySql.Web.sln'
-        arguments: '--configuration $(buildConfiguration)'
+        arguments: '--configuration Release'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
