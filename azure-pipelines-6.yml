@@ -58,35 +58,35 @@ stages:
         command: 'publish'
         publishWebProjects: false
         projects: 'ASP.NET/mysql-connector-net/EFCore/MySql.EntityFrameworkCore.sln'
-        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        arguments: '--configuration Release --framework net6.0 --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: false
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
         publishWebProjects: false
         projects: 'ASP.NET/mysql-connector-net/EntityFramework/MySql.Data.EntityFramework.sln'
-        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        arguments: '--configuration Release --framework net48 -output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: false
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
         publishWebProjects: false
         projects: 'ASP.NET/mysql-connector-net/MySQL.Data.OpenTelemetry/MySQL.Data.OpenTelemetry.sln'
-        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        arguments: '--configuration Release --framework net6.0 --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: false
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
         publishWebProjects: false
         projects: 'ASP.NET/mysql-connector-net/MySQL.Data/MySql.Data.sln'
-        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        arguments: '--configuration Release --framework net462 --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: false
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
         publishWebProjects: false
         projects: 'ASP.NET/mysql-connector-net/MySql.Web/MySql.Web.sln'
-        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        arguments: '--configuration Release --framework net48 --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: false
     
     - task: PublishBuildArtifacts@1
